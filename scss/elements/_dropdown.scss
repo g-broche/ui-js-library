@@ -1,0 +1,89 @@
+@use "../abstract/" as *;
+
+.dropdown>button {
+    /* reset */
+
+    margin: 0;      
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* styling */
+    display: block;
+    width: 100%;
+    padding: 0.5rem 3.5rem 0.5rem 1rem; 
+    border: thin solid $color-select-inactive;
+    border-radius: 4px;
+    text-align: left;
+    font: inherit;
+    line-height: 1rem;
+    background-color: white;
+
+    background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+    background-position:
+    calc(100% - 17px) calc(.7rem + 2px),
+    calc(100% - 12px) calc(.7rem + 2px),
+    calc(100% - 2.5rem) 0.25rem;
+    background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5rem;
+    background-repeat: no-repeat;
+}
+
+.dropdown>button.list-opened {
+    background-image:
+    linear-gradient(45deg, $color-select-active 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, $color-select-active 50%),
+    linear-gradient(to right, #ccc, #ccc);
+    background-position:
+    calc(100% - 12px) .7rem,
+    calc(100% - 17px) .7rem,
+    calc(100% - 2.5rem) 0.25rem;
+    background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5rem;
+    background-repeat: no-repeat;
+    border-color: $color-select-active;
+    outline: 0;
+}
+
+.dropdown{
+    position:relative;
+    width: 100%;
+    line-height: 1.5rem;
+    padding-right: 3.5rem;
+    padding: 0; 
+    border: none;
+}
+
+.dropdown>ul{
+    position: absolute;
+    z-index:1;
+    padding-top: 3px;
+    width: 100%;
+    max-height:30vh;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 4px;
+    border: thin solid $color-select-active;
+}
+.dropdown>ul>li{
+    padding: 2px .5rem;
+}
+.dropdown>ul>li:hover{
+    background-color: $color-select-hover;
+    cursor: pointer;
+}
+
+.dropdown>ul>li.dropdown-selected{
+    background-color: $color-select-item-selected;
+}

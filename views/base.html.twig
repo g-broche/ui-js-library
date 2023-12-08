@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="/css/styles.css">
+		<title>{% block documentTitle %}{% endblock %}</title>
+		<link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+		<meta name="description" content="{% block metaDescription %}{% endblock %}">
+	</head>
+	<body>
+		<header class="banner">
+			{{ include('/partials/header.html.twig')}}
+		</header>
+		<main class="page-main">
+			<section class="page-content-wrapper">
+				{{ include('/partials/dropdown.html.twig')}}
+			</section>
+		</main>
+		<footer class="page-footer">
+			{{ include('/partials/footer.html.twig')}}
+		</footer>
+	<noscript><style>.page-content-wrapper { visibility: visible; }</style></noscript>
+	</body>
+	<script type="module" src="/scripts/videos.js"></script>
+</html>

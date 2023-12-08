@@ -1,0 +1,9 @@
+<div id="category-dropdown" class="dropdown makeshift-select">
+    <button id="category-trigger" tabindex="0">Select category</button>
+    <ul id="category-selector" class="hidden" role="menu" aria-labelledby="category menu" tabindex="-1">
+        <li data-value=0 tabindex="-1">All</li>
+        {% for category in filters.categories %}
+            <li data-value={{category.id}} tabindex="-1">{{category.label}}</li>
+        {% endfor %}
+    </ul>
+</div>
