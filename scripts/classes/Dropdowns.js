@@ -21,9 +21,11 @@ class DropdownBase {
     /**
      * instantiate a drowpdown object to add the dropdown logic to the html elements
      * @param {string} dropdownContainer id of the parent element containing the dropdown elements
+     * @param {string} inputName name that will be used to send data through post and get methods
      */
-    constructor(dropdownContainer) {
+    constructor(dropdownContainer, inputName = null) {
         this.isOpen = false
+        this.inputName = inputName
         this.DOM_Elements = {
             wrapper: document.getElementById(dropdownContainer),
             trigger: document.getElementById(dropdownContainer).querySelector('button'),
@@ -135,10 +137,11 @@ export class DropdownSingle extends DropdownBase{
     /**
      * instantiate a simple drowpdown object to add the dropdown logic to the html elements
      * @param {string} dropdownContainer id of the parent element containing the dropdown elements
+     * @param {string} inputName name that will be used to send data through post and get methods
      * @param {string} selectedItemClass class that will be toggled for the selected item
      */
-    constructor(dropdownContainer, selectedItemClass="dropdown-selected") {
-        super(dropdownContainer)
+    constructor(dropdownContainer, inputName = null, selectedItemClass="dropdown-selected") {
+        super(dropdownContainer, inputName)
         this.selectedListItem = null
         this.selectedItemInfos = null
         this.selectedItemClass = selectedItemClass
@@ -170,14 +173,32 @@ export class DropdownSingle extends DropdownBase{
     getSelectedItemInfos(){
         return this.selectedItemInfos
     }
+    /**
+     * Get the input value to send in request using associated inputName property and currently selected value
+     * @returns  null or 'key=value'
+     */
+    getRequestValue(){
+        if(this.inputName == null || this.selectedItemInfos == null){
+            return null
+        }
+        return `${this.inputName}=${this.selectedItemInfos.value}`
+    }
+    isSet(){
+        return this.selectedItemInfos !== null
+    }
 }
 
 /**
  * Base parent class of all dropdowns having a behavior supporting multiple values.
  */
 class DropdownMultipleBase extends DropdownBase {
-    constructor(dropdownContainer) {
-        super(dropdownContainer)
+    /**
+     * instantiate a multiple drowpdown object to add the dropdown logic to the html elements
+     * @param {string} dropdownContainer id of the parent element containing the dropdown elements
+     * @param {string} inputName name that will be used to send data through post and get methods
+     */
+    constructor(dropdownContainer, inputName = null) {
+        super(dropdownContainer, inputName)
         this.selectedItems = []
     }
 
@@ -208,6 +229,26 @@ class DropdownMultipleBase extends DropdownBase {
      */
     getAllSelectedItems() {
         return this.selectedItems
+    }
+    /**
+     * Get the input value to send in request using associated inputName property and currently selected values
+     * @returns null or 'key=value1&key=value2...&key=valueN'
+     */
+    getRequestValues(){
+        console.log(this.selectedItems)
+        if(this.inputName == null || this.selectedItems.length==0){
+            return null
+        }
+        let requestString=""
+        let isFirstValue=true
+        this.selectedItems.forEach(selectedItem => {
+            requestString+=(isFirstValue? `${this.inputName}[]=${selectedItem.value}` : `&${this.inputName}[]=${selectedItem.value}`)
+            isFirstValue=false
+        });
+        return requestString
+    }
+    isSet(){
+        return this.selectedItems.length>0
     }
 }
 
