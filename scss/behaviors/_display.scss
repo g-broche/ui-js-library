@@ -7,3 +7,9 @@
 .display-none{
     display: none !important;
 }
+
+.sliderY-hidden{
+    max-height: 0;
+    overflow-y: hidden;
+    transition: max-height $slider-transition-timer linear;
+}
